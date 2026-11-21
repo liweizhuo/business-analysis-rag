@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>经营智析</title>
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">析</div>
+        <div><strong>经营智析</strong><span>数据问答与周报助手</span></div>
+      </div>
+
+      <nav aria-label="主要功能">
+        <button class="nav-item active" data-page="ask"><span>✦</span> 智能问答</button>
+        <button class="nav-item" data-page="report"><span>▤</span> 生成周报</button>
+        <button class="nav-item" data-page="search"><span>⌕</span> 查业务规则</button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="status"><i id="statusDot"></i><span id="statusText">正在连接系统</span></div>
+        <a href="/docs" target="_blank">开发接口文档 ↗</a>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button id="menuButton" class="menu-button" aria-label="打开菜单">☰</button>
+        <div><span class="eyebrow">BUSINESS INTELLIGENCE</span><h1 id="pageTitle">智能问答</h1></div>
+      </header>
+
+      <section id="askPage" class="page active">
+        <div class="hero">
+          <span class="hero-kicker">经营问题，直接问</span>
+          <h2>从业务规则到经营指标，<br>一句话获得有来源的答案。</h2>
+          <p>系统会区分规则问题和数值问题，并展示知识库出处与实际查询依据。</p>
+        </div>
+
+        <div class="composer card">
+          <label for="accessKey">访问密钥</label><input id="accessKey" type="password" autocomplete="off" placeholder="输入管理员提供的访问密钥"><br><br><label for="question">你想了解什么？</label>
+          <textarea id="question" rows="3" placeholder="例如：新签数据需要补充哪些字段？"></textarea>
+          <div class="composer-actions">
+            <span>Enter 提交 · Shift+Enter 换行</span>
+            <button id="askButton" class="primary">开始分析 <b>→</b></button>
+          </div>
+        </div>
+
+        <div class="examples">
+          <span>你可以这样问</span>
+          <div>
+            <button class="example" data-question="新签数据需要补充哪些字段？">新签字段规则</button>
+            <button class="example" data-question="2023年第二季度新签金额是多少？">季度新签金额</button>
+            <button class="example" data-question="2023年第二季度新签金额相对第一季度环比增长多少？">季度环比分析</button>
+            <button class="example" data-question="WTW 周波动怎么处理？">WTW 周波动</button>
+          </div>
+        </div>
+
+        <div id="askLoading" class="loading hidden"><i></i><span>正在检索知识库并分析数据…</span></div>
+        <div id="askResult" class="result-stack hidden">
+          <article class="answer-card card">
+            <div class="card-title"><span class="icon purple">✦</span><div><b>分析结论</b><small>基于知识库与经营数据</small></div></div>
+            <div id="answerText" class="answer-text"></div>
+          </article>
+          <article id="dataCard" class="card hidden">
+            <div class="card-title"><span class="icon green">▦</span><div><b>数据依据</b><small>实际查询结果</small></div></div>
+            <div id="dataTable" class="table-wrap"></div>
+            <details><summary>查看执行的查询语句</summary><pre id="sqlText"></pre></details>
+          </article>
+          <article class="card">
+            <div class="card-title"><span class="icon amber">⌕</span><div><b>知识依据</b><small>点击展开查看原文</small></div></div>
+            <div id="evidenceList" class="evidence-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="reportPage" class="page">
+        <div class="section-heading"><span class="hero-kicker">WEEKLY REPORT</span><h2>一键生成经营周报</h2><p>选择统计周期和团队，自动整理指标概览、异常与行动建议。</p></div>
+        <div class="report-layout">
+          <form id="reportForm" class="card form-card">
+            <div class="field-row"><label>年份<input id="reportYear" type="number"></label><label>季度<select id="reportQuarter"><option>Q1</option><option>Q2</option><option>Q3</option><option>Q4</option></select></label></div>
+            <div class="field-row"><label>周次<input id="reportWeek" type="number" min="1" max="53"></label><label>团队<input id="reportTeam" value="ACG"></label></div>
+            <button class="primary wide" type="submit" disabled>周报功能待接入</button>
+            <p class="form-note">新主线暂未接入周报生成，此处保留展示入口。</p>
+          </form>
+          <div id="reportPlaceholder" class="empty-state card"><span>▤</span><h3>周报将在这里生成</h3><p>填写左侧条件，然后点击生成。</p></div>
+          <div id="reportResult" class="report-output card hidden"></div>
+        </div>
+      </section>
+
+      <section id="searchPage" class="page">
+        <div class="section-heading"><span class="hero-kicker">KNOWLEDGE BASE</span><h2>查询业务规则</h2><p>适合查找字段口径、数据处理步骤、校验规则与保存位置。</p></div>
+        <div class="search-bar card"><input id="searchQuery" placeholder="输入规则关键词，例如：区域省份如何匹配"><button id="searchButton" class="primary">检索规则</button></div>
+        <div id="searchResult" class="search-results"></div>
+      </section>
+
+      <div id="toast" role="alert"></div>
+    </main>
+  </div>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

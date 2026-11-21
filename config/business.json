@@ -1,0 +1,28 @@
+{
+  "published": false,
+  "knowledge_version": "待发布知识版本",
+  "snapshot_id": "待发布数据版本",
+  "data_as_of": "待填写数据截至时间",
+  "source": "new_signing",
+  "table": "business_new_signing",
+  "columns": {
+    "snapshot_id": "数据发布版本",
+    "quarter": "签订日期所属季度，格式2023Q1",
+    "region": "业务归属地区",
+    "amount_yuan": "人民币元，DECIMAL类型",
+    "include_flag": "已核对的新签计入标记"
+  },
+  "rule": {
+    "id": "new_signing_rule_v1",
+    "metric_id": "new_signing_amount",
+    "name": "新签金额",
+    "unit": "人民币元",
+    "effective_from": "2023Q1",
+    "effective_until": "2023Q4",
+    "source_version": "待发布知识版本",
+    "definition": "教学示例：include_flag=1的新签金额，需按实际口径核对后发布"
+  },
+  "users": {
+    "用户访问密钥": {"user_id": "示例用户", "authorized_region": "授权地区"}
+  }
+}
